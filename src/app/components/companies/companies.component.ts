@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {Company} from "../../shared/interfaces/company.interface";
 import {GetCompaniesRequest} from "../../store/actions/companies.actions";
@@ -10,7 +10,7 @@ import {Observable, Subject} from "rxjs";
   templateUrl: './companies.component.html',
   styleUrls: ['./companies.component.scss']
 })
-export class CompaniesComponent implements OnInit, AfterViewInit {
+export class CompaniesComponent implements OnInit, AfterViewInit, OnDestroy {
   columns: string[] = ['name', 'owner', 'okpo', 'phone', 'create date']
   companies$: Observable<Company[]>
   addedItem: Subject<boolean>
@@ -29,6 +29,10 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
         this.loadCompanies()
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.addedItem.unsubscribe()
   }
 
   private loadCompanies() {
