@@ -1,10 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {AddCompanyRequest} from "../../store/actions/companies.actions";
 import {Company} from "../../shared/interfaces/company.interface";
 import {selectAddingStatus} from "../../store";
-import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-add-company',
@@ -13,9 +12,6 @@ import {Subject} from "rxjs";
 })
 export class AddCompanyComponent implements OnInit {
   companyForm: FormGroup
-
-  @Input()
-  addedItem: Subject<boolean>
 
   constructor(private readonly store: Store) {
   }
@@ -47,8 +43,6 @@ export class AddCompanyComponent implements OnInit {
         Object.keys(this.companyForm.controls).forEach(key => {
           this.companyForm.get(key).setErrors(null);
         });
-
-        this.addedItem.next(isAdded)
       }
     })
   }

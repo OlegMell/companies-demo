@@ -2,8 +2,8 @@ import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {Company} from "../../shared/interfaces/company.interface";
 import {GetCompaniesRequest} from "../../store/actions/companies.actions";
-import {selectAllCompanies} from "../../store";
-import {Observable, Subject} from "rxjs";
+import {selectAddingStatus, selectAllCompanies} from "../../store";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-companies',
@@ -13,10 +13,9 @@ import {Observable, Subject} from "rxjs";
 export class CompaniesComponent implements OnInit, AfterViewInit, OnDestroy {
   columns: string[] = ['name', 'owner', 'okpo', 'phone', 'create date']
   companies$: Observable<Company[]>
-  addedItem: Subject<boolean>
+  addedItem$: Subscription
 
   constructor(private readonly store: Store) {
-    this.addedItem = new Subject<boolean>()
   }
 
   ngOnInit(): void {
@@ -24,15 +23,16 @@ export class CompaniesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.addedItem.subscribe(isAdded => {
-      if (isAdded) {
-        this.loadCompanies()
-      }
-    })
+    this.addedItem$ = this.store.select(selectAddingStatus)
+      .subscribe((isAdded) => {
+        if (isAdded) {
+          this.loadCompanies()
+        }
+      })
   }
 
   ngOnDestroy(): void {
-    this.addedItem.unsubscribe()
+    this.addedItem$.unsubscribe()
   }
 
   private loadCompanies() {

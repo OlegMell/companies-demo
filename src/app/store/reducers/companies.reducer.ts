@@ -26,13 +26,15 @@ export function reducer(state: State = initialState, action: CompaniesActionsUni
       return {
         ...state,
         companies: action.payload.companies,
-        pending: false
+        pending: false,
+        isAdded: false
       }
     case CompaniesActions.GetCompaniesRequestError:
       return {
         ...state,
         pending: false,
-        hasError: true
+        hasError: true,
+        isAdded: false
       }
     case CompaniesActions.AddCompanyRequest:
       return {

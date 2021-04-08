@@ -31,17 +31,17 @@ export class CompaniesEffects {
         }),
         catchError(() => of(new GetCompaniesRequestError()))
       ))
-  ))
+  ));
 
   addCompany$ = createEffect(() => this.actions$.pipe(
     ofType(CompaniesActions.AddCompanyRequest),
     mergeMap((action: AddCompanyRequest) =>
       this.firebaseService.addCompany(action.payload.company)
         .pipe(
-          map((res) => new AddCompanyRequestSuccess()),
+          map(() => new AddCompanyRequestSuccess()),
           catchError(() => of(new AddCompanyRequestError()))
         ))
-  ))
+  ));
 
   constructor(private readonly actions$: Actions,
               private readonly firebaseService: FirebaseService) {
