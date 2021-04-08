@@ -1,0 +1,16 @@
+.add-company {
+  margin: 10px;
+  padding: 20px 10px;
+  width: 100%;
+
+  .form-field-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+  }
+}

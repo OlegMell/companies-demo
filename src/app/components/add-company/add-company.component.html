@@ -1,0 +1,28 @@
+<form class="add-company" [formGroup]="companyForm" (ngSubmit)="addCompany()">
+  <div class="form-field-box">
+    <mat-form-field appearance="fill">
+      <mat-label>Дата создания</mat-label>
+      <input matInput type="datetime-local" [formControl]="createdate">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Имя компании</mat-label>
+      <input matInput [formControl]="name">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>ОКПО</mat-label>
+      <input matInput type="number" [formControl]="okpo">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Владелец</mat-label>
+      <input matInput [formControl]="owner">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Номер телефона</mat-label>
+      <input matInput type="tel" [formControl]="phone">
+    </mat-form-field>
+  </div>
+  <button mat-raised-button
+          [disabled]="!companyForm.valid"
+          type="submit">Добавить
+  </button>
+</form>
