@@ -2,8 +2,8 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {FirebaseService} from "../../shared/services/firebase.service";
 import {
-  AddCompanyRequest, AddCompanyRequestError, AddCompanyRequestSuccess,
-  CompaniesActions,
+  AddCompanyRequest, AddCompanyRequestError,
+  CompaniesActions, GetCompaniesRequest,
   GetCompaniesRequestError,
   GetCompaniesRequestSuccess
 } from "../actions/companies.actions";
@@ -38,7 +38,7 @@ export class CompaniesEffects {
     mergeMap((action: AddCompanyRequest) =>
       this.firebaseService.addCompany(action.payload.company)
         .pipe(
-          map(() => new AddCompanyRequestSuccess()),
+          map(() => new GetCompaniesRequest()),
           catchError(() => of(new AddCompanyRequestError()))
         ))
   ));

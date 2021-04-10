@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {Company} from "../../shared/interfaces/company.interface";
 import {GetCompaniesRequest} from "../../store/actions/companies.actions";
-import {selectAddingStatus, selectAllCompanies} from "../../store";
+import {selectAllCompanies} from "../../store";
 import {Observable, Subscription} from "rxjs";
 
 @Component({
@@ -10,29 +10,15 @@ import {Observable, Subscription} from "rxjs";
   templateUrl: './companies.component.html',
   styleUrls: ['./companies.component.scss']
 })
-export class CompaniesComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CompaniesComponent implements OnInit {
   columns: string[] = ['name', 'owner', 'okpo', 'phone', 'create date']
   companies$: Observable<Company[]>
-  addedItem$: Subscription
 
   constructor(private readonly store: Store) {
   }
 
   ngOnInit(): void {
     this.loadCompanies()
-  }
-
-  ngAfterViewInit(): void {
-    this.addedItem$ = this.store.select(selectAddingStatus)
-      .subscribe((isAdded) => {
-        if (isAdded) {
-          this.loadCompanies()
-        }
-      })
-  }
-
-  ngOnDestroy(): void {
-    this.addedItem$.unsubscribe()
   }
 
   private loadCompanies() {

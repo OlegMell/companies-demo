@@ -5,14 +5,12 @@ export interface State {
   companies: Company[]
   pending: boolean,
   hasError: boolean,
-  isAdded: boolean
 }
 
 export const initialState: State = {
   companies: [],
   pending: false,
   hasError: false,
-  isAdded: false
 }
 
 export function reducer(state: State = initialState, action: CompaniesActionsUnion): State {
@@ -27,33 +25,28 @@ export function reducer(state: State = initialState, action: CompaniesActionsUni
         ...state,
         companies: action.payload.companies,
         pending: false,
-        isAdded: false
       }
     case CompaniesActions.GetCompaniesRequestError:
       return {
         ...state,
         pending: false,
         hasError: true,
-        isAdded: false
       }
     case CompaniesActions.AddCompanyRequest:
       return {
         ...state,
         pending: true,
-        isAdded: false
       }
     case CompaniesActions.AddCompanyRequestSuccess:
       return {
         ...state,
         pending: false,
-        isAdded: true
       }
     case CompaniesActions.AddCompanyRequestError:
       return {
         ...state,
         pending: false,
         hasError: true,
-        isAdded: false
       }
     default:
       return {

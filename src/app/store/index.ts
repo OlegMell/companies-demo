@@ -26,8 +26,3 @@ export const selectHasError = createSelector(
   selectCompaniesState,
   (state: companies.State) => state.hasError
 )
-
-export const selectAddingStatus = createSelector(
-  selectCompaniesState,
-  (state: companies.State) => state.isAdded
-)

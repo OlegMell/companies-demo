@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {AddCompanyRequest} from "../../store/actions/companies.actions";
 import {Company} from "../../shared/interfaces/company.interface";
-import {selectAddingStatus} from "../../store";
+import {selectHasError} from "../../store";
 
 @Component({
   selector: 'app-add-company',
@@ -37,8 +37,8 @@ export class AddCompanyComponent implements OnInit {
 
     this.store.dispatch(new AddCompanyRequest({company}))
 
-    this.store.select(selectAddingStatus).subscribe(isAdded => {
-      if (isAdded) {
+    this.store.select(selectHasError).subscribe(isAdded => {
+      if (!isAdded) {
         this.companyForm.reset()
         Object.keys(this.companyForm.controls).forEach(key => {
           this.companyForm.get(key).setErrors(null);
